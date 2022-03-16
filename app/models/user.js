@@ -14,10 +14,14 @@ let userSchema = new mongoose.Schema({
 
 
 //transformando a senha para criptografia
+// Esse (.pre) permite rodar um script antes (ou depois) de salvar no bd
+//Next, passa para o proximo mideraware 
 userSchema.pre('save', function(next){
 
     if(this.isNew || this.isModified('password')){
-
+        //função para executar a cryptografia
+        //passo o valor, qtd de caracter no cr
+        //(err, e a senha depois de transformada)
         bcrypt.hash(this.password, 10,
             (err,hashedPassword)=>{
                 if(err){
