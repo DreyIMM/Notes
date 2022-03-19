@@ -1,8 +1,14 @@
+//importando o dotenv
+// .config() pemite que a variavel fica acessivel a nossa aplicação
+require('dotenv').config();
+
 var express = require('express');
 const { route } = require('express/lib/application');
 const res = require('express/lib/response');
 var router = express.Router();
 const User = require('../models/user')
+var jwt = require('jsonwebtoken');
+const secret = process.env.JWT_TOKEN;
 
 
 // -> /users
@@ -27,14 +33,14 @@ router.post('/register', async(req,res)=>{
 
 //criando um endPoint de login
 
-router.post('/login', async(req,res)=>{
+router.post('/login', async(req, res)=>{
 
     const {email, password} = req.body;
 
     try{
+      //pegar todo o objeto user único pelo e-mail
+      let user = await User.findOne({  email })
       
-      let user = await User.findOne({ email })
-      console.log(user);
       //verificar se não está presente, ou seja não existe ou e-mail errado
       if(!user){
 
@@ -49,21 +55,18 @@ router.post('/login', async(req,res)=>{
 
             }else{
               //Se a senha estiver ok, é chamado o token, e o que gera o token é o método sign (email, token, e dtExpiração)
-              const token = jwt.sign({email}, secret, {expiresIn:'1d'});
+              const token = jwt.sign({email}, secret, {expiresIn:'30d'});
               res.json({user:user, token:token});
             }
 
         })
-
       }
-
 
     }catch(error){
 
-      res.status(500).json({error: 'Internal erro,please try again'})
+      res.status(500).json({error: 'Internal erro, please realod and try again'})
 
     }
-
 
 })
 

@@ -1,12 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-// Token para o usuario navegar 
-const jwt = require('jsonwebtoken');
 
-//importando o dotenv
-// .config() pemite que a variavel fica acessivel a nossa aplicação
-require('dotenv').config();
-const secret = process.env.JWT_TOKEN;
 
 
 
