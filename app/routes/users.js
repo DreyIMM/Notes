@@ -1,8 +1,4 @@
-//importando o dotenv
-// .config() pemite que a variavel fica acessivel a nossa aplicação
-//observação, mantenha sempre o .config no incio
 require('dotenv').config();
-
 var express = require('express');
 const { route } = require('express/lib/application');
 const res = require('express/lib/response');
@@ -11,8 +7,6 @@ const User = require('../models/user')
 var jwt = require('jsonwebtoken');
 const secret = process.env.JWT_TOKEN;
 
-
-// -> /users
 
 //rota para cadastrar novos usuarios
 router.post('/register', async(req,res)=>{
@@ -33,7 +27,6 @@ router.post('/register', async(req,res)=>{
 })
 
 //criando um endPoint de login
-
 router.post('/login', async(req, res)=>{
 
     const {email, password} = req.body;
