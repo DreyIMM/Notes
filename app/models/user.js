@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
-//criptografar a senha
 const bcrypt = require('bcrypt');
+// Token para o usuario navegar 
+const jwt = require('jsonwebtoken');
+
+//importando o dotenv
+// .config() pemite que a variavel fica acessivel a nossa aplicação
+require('dotenv').config();
+const secret = process.env.JWT_TOKEN;
+
+
 
 let userSchema = new mongoose.Schema({
 
@@ -35,6 +43,25 @@ userSchema.pre('save', function(next){
     }
 
 })
+
+//criando um método para validar o password
+//same -> retorna um boolean (dizendo se a senha (true/false))
+
+userSchema.methods.isCorrectPassword = function(password, callback){
+
+    bcrypt.compare(password, this.password, function(err,same){
+        
+        if(err){
+            callback(err);    
+        }else{
+            
+            callback(err,same);
+
+        }
+
+    })
+
+}
 
 
 module.exports = mongoose.model('User', userSchema);
