@@ -33,4 +33,4 @@ const WithAuth = (req, res, next)=>{
         
 }
 
-moduele.exports = WithAuth;
+module.exports = WithAuth;
