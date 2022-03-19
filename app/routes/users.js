@@ -1,5 +1,6 @@
 //importando o dotenv
 // .config() pemite que a variavel fica acessivel a nossa aplicação
+//observação, mantenha sempre o .config no incio
 require('dotenv').config();
 
 var express = require('express');
