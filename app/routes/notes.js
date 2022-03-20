@@ -18,12 +18,10 @@ router.post('/', withAuth, async(req,res) =>{
 
     }
 
-
-
 })
 
 
-//Apresenta nota de acordo com o token
+//Rota -> apresenta nota de acordo com o token
 router.get('/:id', withAuth, async(req,res)=>{
     
     try {
@@ -44,9 +42,25 @@ router.get('/:id', withAuth, async(req,res)=>{
 
 })
 
+//rota 
+//ATENTION: o req.user._id vem do WithAut
+router.get('/', withAuth, async(req,res)=>{
+
+    try {
+        let notes = await Note.find({author: req.user._id});
+        res.json(notes)
+    } catch (error) {
+        res.json({error: error}).status(500);
+    }
+
+})
+
+
+
+
+
 //criando um método para verificar o dono da nota
 //JSON.stringfy -> converte para text
-
 const isOwner = (user, note)=>{
 
     if(JSON.stringify(user._id) == JSON.stringify(note.author._id)){
