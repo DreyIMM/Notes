@@ -87,6 +87,25 @@ router.put('/:id', withAuth, async(req, res)=>{
 
 })
 
+//Rota para deletar uma nota
+router.delete('/:id', withAuth, async(req,res)=>{
+
+    const {id} = req.params; 
+    try {
+        let note = await Note.findById(id);
+        if(isOwner(req.user, note)){
+            await note.delete();
+            res.json({message: 'Thanks, your note has been deleted'}).status(204);
+        }else{
+            res.status(403).json({error: 'Permission denied'});
+        }
+    } catch (error) {
+        res.status(500).json({error: 'Problem to delete a note'});
+    }
+
+
+})
+
 
 //criando um método para verificar o dono da nota
 //JSON.stringfy -> converte para text
