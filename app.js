@@ -3,7 +3,7 @@ var path = require('path');
 var logger = require('morgan');
 //importanto a conexão
 require('./config/database')
-
+var cors = require('cors');
 
 //importando as rotas
 var usersRouter = require('./app/routes/users');
@@ -16,6 +16,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 
 // utilizando as Rotas na navegação
