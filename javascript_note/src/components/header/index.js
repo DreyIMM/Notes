@@ -1,7 +1,6 @@
-import React from 'React';
 import {Navbar, Container} from 'rbx';
-import logImage from '../../images/logo.png';
-
+import logImage from '../../assets/images/logo.png'
+import '../../styles/header.scss';
 function Header(){
     return(
        <Navbar>
