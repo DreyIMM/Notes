@@ -3,7 +3,7 @@ var router = express.Router();
 const Note = require('../models/notes');
 const withAuth = require('../middlewares/auth');
 
-
+//criando um rota que cria uma nota
 router.post('/', withAuth, async(req,res) =>{
 
     const {title, body} = req.body;
@@ -21,5 +21,40 @@ router.post('/', withAuth, async(req,res) =>{
 
 
 })
+
+
+//Apresenta nota de acordo com o token
+router.get('/:id', withAuth, async(req,res)=>{
+    
+    try {
+
+        const {id} = req.params;
+        
+        let note = await Note.findById(id);
+
+        //precisa-se verificar quem é o dono daquela nota
+        if(isOwner(req.user, note)){
+            res.json(note);
+        }else{
+            res.status(403).json({error: 'Permission denied'});
+        }
+    } catch (error) {
+        res.status(500).json({error: 'Problem to get a new note'});
+    }
+
+})
+
+//criando um método para verificar o dono da nota
+//JSON.stringfy -> converte para text
+
+const isOwner = (user, note)=>{
+
+    if(JSON.stringify(user._id) == JSON.stringify(note.author._id)){
+        return true;
+    }else{
+        return false;
+    }
+
+}
 
 module.exports = router;
