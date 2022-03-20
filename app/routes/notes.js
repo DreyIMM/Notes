@@ -21,6 +21,23 @@ router.post('/', withAuth, async(req,res) =>{
 })
 
 
+//Rota -> realiza uma busca da nota pelo nome(title)
+
+router.get('/search', withAuth, async(req,res)=>{
+    const {query} = req.query;
+
+    try {
+        let notes = await Note.
+        find({author: req.user._id})
+        .find({ $text: {$search: query}});
+        res.json(notes);
+
+    } catch (error) {
+        res.json({error: error}).status(500);
+    }
+
+})
+
 //Rota -> apresenta nota de acordo com o token
 router.get('/:id', withAuth, async(req,res)=>{
     

@@ -15,5 +15,10 @@ let noteSchema = new mongoose.Schema({
         required: true
     }
 })
+
+//criando um index manual, itens interessante para uma pesquisa
+noteSchema.index({'title': 'text', 'body': 'text'})
+
+
 //exportando o modulo como Note
 module.exports = mongoose.model('Note', noteSchema)
