@@ -18,8 +18,7 @@ function Header(){
                 <Navbar.Segment  as="div" className="navbar-item navbar-end" align="right">
                  1
                 </Navbar.Segment>               
-            </Navbar.Menu>
-        
+            </Navbar.Menu>        
            </Container>
        </Navbar>
     );
