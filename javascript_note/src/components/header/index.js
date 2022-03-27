@@ -22,10 +22,10 @@ function Header(){
                 <Navbar.Segment  as="div" className="navbar-item navbar-end" align="right">
                  <Column.Group>
                     <Column>
-                        <linK to="/register" className="button is-white has-text-custom-purple">Register</linK>
+                        <Link to="/register" className="button is-white has-text-custom-purple">Register</Link>
                     </Column>
                     <Column>
-                        <linK to="/login" className="button is-outlined is-custom-purple">Login</linK>
+                        <Link to="/login" className="button is-outlined is-custom-purple">Login</Link>
                     </Column>
                  </Column.Group>
                 </Navbar.Segment>               
