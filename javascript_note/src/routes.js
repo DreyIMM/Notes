@@ -7,12 +7,22 @@ import {
     Route,
     useRoutes,
   } from "react-router-dom";
-import Home from './screens/home';
+
+import HomeScreen from './screens/home';
+import RegisterScreen from './screens/auth/register';
+import LoginScreen from './screens/auth/login';
+import NotesIndexScreen from './screens/notes/index';
+import UserEditScreen from './screens/users/edit';
+
+
 
 const App = () => {
     let routes = useRoutes([
-      { path: "/", element: <Home/> },
-     
+      { path: "/", element: <HomeScreen/> },
+      { path: "/register", element: <RegisterScreen/> },
+      { path: "/login", element: <LoginScreen/> },
+      { path: "/notes", element: <NotesIndexScreen/> },
+      { path: "/users/edit", element: <UserEditScreen/> }
     ]);
     return routes;
 };

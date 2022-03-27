@@ -1,12 +1,13 @@
 import React, {Fragment} from 'react'
 import {Notification, Section } from 'rbx'
 import './App.scss';
-import Routing from './routes';
+import AppWrapper from './routes';
+
 
 const App = () => (
 
     <Fragment>
-        <Routing/>
+        <AppWrapper/>
     </Fragment>
 
 )
