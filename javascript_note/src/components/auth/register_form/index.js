@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Field, Control, Input, Column, Section, Help, Label } from "rbx";
 import { Navigate } from "react-router-dom";
-
+import UserService from '../../../services/users';
 
 function RegisterForm() {
      
@@ -14,6 +14,20 @@ function RegisterForm() {
     const [redirectToLogin, setRedirectToLogin] = useState(false);
     const [error, setError] = useState(false);
 
+    //metodo para lidar com o envio dos params para a API
+    const HandleSubmit = async (evt) =>{
+        evt.preventDefault();
+        
+        try{
+            const user = await UserService.register({name: name, email: email, password: password})
+            setRedirectToLogin(true)
+        }catch(error){
+            setError(true);
+        }
+
+    }
+
+
     //realizando o redirect
     if(redirectToLogin){
         return <Navigate to={"/login"} />
@@ -22,7 +36,7 @@ function RegisterForm() {
     return (
         <Fragment>
         <Column.Group centered>
-            <form>
+            <form onSubmit={HandleSubmit}>
             <Column size={12}>
                 <Field>
                 <Label size="small">Name:</Label>
