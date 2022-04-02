@@ -8,6 +8,7 @@ const UserService ={
     register: (params) => Api.post('/users/register', params),
     login: async(params) =>{
         const response = await Api.post('/users/login', params);
+        //JSON.stringify -> transformar em string 
         localStorage.setItem('user', JSON.stringify(response.data.user));
         localStorage.setItem('token', response.data.token);
     }

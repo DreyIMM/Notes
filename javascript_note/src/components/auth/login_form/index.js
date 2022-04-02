@@ -55,7 +55,8 @@ function LoginForm() {
                   type="password" 
                   required
                   name="password"
-                  
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}                  
                 />
               </Control>
             </Field>
