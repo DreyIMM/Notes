@@ -3,6 +3,7 @@ import Header from '../../../components/header';
 import { Column, Container, Card,Section, Title } from "rbx";
 import logoImage from '../../../assets/images/logo.png'
 import '../../../styles/auth.scss';
+import LoginForm from '../../../components/auth/login_form';
 
 const LoginScreen = () =>( 
     <Fragment>
@@ -26,6 +27,7 @@ const LoginScreen = () =>(
                                    </Title>
                                    </Column>
                                </Column.Group>
+                                <LoginForm/ >
                            </Section>  
                        </Card.Content>
                    </Card>
