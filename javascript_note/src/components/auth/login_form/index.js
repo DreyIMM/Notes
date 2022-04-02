@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { Button, Field, Control, Input, Column, Section, Help, Label } from "rbx";
 import { Navigate } from "react-router-dom";
+import UserService from '../../../services/users';
 
 function LoginForm() {
  
@@ -10,6 +11,20 @@ function LoginForm() {
     const [redirectToNotes, setRedirectToNotes] = useState(false);
     const [error, setError] = useState(false);
     
+        //metodo para lidar com o envio dos params para a API
+        const HandleSubmit = async (evt) =>{
+          evt.preventDefault();
+          
+          try{
+              const user = await UserService.login({email: email, password: password})
+              setRedirectToNotes(true)
+          }catch(error){
+              setError(true);
+          }
+  
+      }
+
+
     if(redirectToRegister)
         return <Navigate to={{pathname: "/register"}}/>
     else if(redirectToNotes)
@@ -19,7 +34,7 @@ function LoginForm() {
 
   return (
     <Fragment>
-      <Column.Group centered>
+      <Column.Group centered onSubmit={HandleSubmit}>
         <form>
           <Column size={12}>
             <Field>
