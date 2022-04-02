@@ -13,7 +13,7 @@ import RegisterScreen from './screens/auth/register';
 import LoginScreen from './screens/auth/login';
 import NotesIndexScreen from './screens/notes/index';
 import UserEditScreen from './screens/users/edit';
-
+import PrivateRoute from "./components/auth/private_router";
 
 
 const App = () => {
@@ -21,8 +21,8 @@ const App = () => {
       { path: "/", element: <HomeScreen/> },
       { path: "/register", element: <RegisterScreen/> },
       { path: "/login", element: <LoginScreen/> },
-      { path: "/notes", element: <NotesIndexScreen/> },
-      { path: "/users/edit", element: <UserEditScreen/> }
+      { path: "/notes", element:<PrivateRoute>  <NotesIndexScreen/> </PrivateRoute> },
+      { path: "/users/edit", element:<UserEditScreen/>  }
     ]);
     return routes;
 };
