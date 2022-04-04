@@ -3,8 +3,6 @@
 import React from "react";
 import {
     BrowserRouter as Router,
-    Routes,
-    Route,
     useRoutes,
   } from "react-router-dom";
 
@@ -17,7 +15,7 @@ import PrivateRoute from "./components/auth/private_router";
 
 
 const App = () => {
-  
+
     let routes = useRoutes([
       { path: "/", element: <HomeScreen/> },
       { path: "/register", element: <RegisterScreen/> },
