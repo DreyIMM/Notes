@@ -17,12 +17,13 @@ import PrivateRoute from "./components/auth/private_router";
 
 
 const App = () => {
+  
     let routes = useRoutes([
       { path: "/", element: <HomeScreen/> },
       { path: "/register", element: <RegisterScreen/> },
       { path: "/login", element: <LoginScreen/> },
       { path: "/notes", element:<PrivateRoute>  <NotesIndexScreen/> </PrivateRoute> },
-      { path: "/users/edit", element:<UserEditScreen/>  }
+      { path: "/users/edit", element:<PrivateRoute> <UserEditScreen/> </PrivateRoute>  }
     ]);
     return routes;
 };
