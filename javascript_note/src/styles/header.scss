@@ -11,3 +11,10 @@ nav.navbar{
         margin: 15px;
     }
 }
+
+.navbar-logged{
+    .navbar-menu{
+        background-color: $custom-purple;
+        margin-top: auto;
+    }
+}
