@@ -2,8 +2,15 @@ import React, {useState, Fragment} from "react";
 import '../../styles/notes.scss'; 
 import {push as Menu} from 'react-burger-menu'
 import { Navbar, Container, Column, Button, Dropdown } from 'rbx';
+import List from './list';
+import NoteService from '../../services/notes'
+
 
 const Notes = (props) =>{
+    
+    const [notes, setNotes] useState({}) 
+
+
     return (
         <Fragment>
            <Column.Group className="notes" id="notes">
