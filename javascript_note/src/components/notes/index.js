@@ -1,14 +1,35 @@
-import React, {useState, Fragment} from "react";
+import React, {useState, Fragment, useEffect} from "react";
 import '../../styles/notes.scss'; 
 import {push as Menu} from 'react-burger-menu'
 import { Navbar, Container, Column, Button, Dropdown } from 'rbx';
 import List from './list';
-import NoteService from '../../services/notes'
+import NotesService from '../../services/notes'
 
 
 const Notes = (props) =>{
     
-    const [notes, setNotes] useState({}) 
+    const [notes, setNotes] = useState([]);
+    const [current_note, setCurrentNote] = useState({ title: "", body: "", id: ""}); 
+
+
+    async function fetchNotes(){
+      const response = await NotesService.index();
+      if(response.data.length >=1){
+          setNotes(response.data.reverse());
+          setCurrentNote(response.data[0]);
+      }
+    }
+
+    const selectNote =  (id) => {
+      const note =  notes.find((note) => {
+        return note._id == id;
+      })
+      setCurrentNote(note);
+    }
+
+    useEffect(() =>{
+      fetchNotes();
+    })
 
 
     return (
@@ -28,7 +49,11 @@ const Notes = (props) =>{
                  Search...
                 </Column>
             </Column.Group>
-                <p>List...</p>
+               <List
+                notes={notes}
+                selectNote={selectNote}
+                current_note={current_note} 
+              />
         </Menu>
 
 
