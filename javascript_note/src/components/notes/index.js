@@ -20,7 +20,7 @@ const Notes = (props) =>{
       }
     }
 
-    const selectNote =  (id) => {
+    const selectNote = (id) => {
       const note =  notes.find((note) => {
         return note._id == id;
       })
@@ -29,7 +29,7 @@ const Notes = (props) =>{
 
     useEffect(() =>{
       fetchNotes();
-    })
+    }, [])
 
 
     return (
