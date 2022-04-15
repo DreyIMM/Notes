@@ -17,3 +17,8 @@
 .list-item.is-active {
     background-color: $custom-grey-light;
 }
+
+.notes-editor{
+    padding: 0px;
+    height: calc(100% -43px);
+}

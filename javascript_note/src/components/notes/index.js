@@ -4,7 +4,7 @@ import {push as Menu} from 'react-burger-menu'
 import { Column, Button} from 'rbx';
 import List from '../notes/list';
 import NotesService from '../../services/notes'
-
+import Editor from './editor';
 
 function Notes(props) {
     
@@ -17,6 +17,7 @@ function Notes(props) {
         if(response.data.length >=1){
             setNotes(response.data.reverse());
             setCurrentNote(response.data[0]);
+          
         }else{
           setNotes([]);
         }
@@ -75,7 +76,7 @@ function Notes(props) {
 
 
         <Column size={12} className="notes-editor" id="notes-editor">
-          Editor...
+            <Editor note={current_note} />
         </Column>
       </Column.Group>
         </Fragment>

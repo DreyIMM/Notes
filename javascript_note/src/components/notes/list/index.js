@@ -33,7 +33,7 @@ function ListNotes(props) {
           <Column.Group breakpoint="mobile">
             <Column size={10}>
               <Tag color="dark">
-                {Moment(item.created_at).format('DD/MM')}
+                {Moment(item.create_at).format('DD/MM')}
               </Tag>
             </Column>
             <Column size={2}>
