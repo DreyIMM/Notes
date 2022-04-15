@@ -8,6 +8,19 @@ var jwt = require('jsonwebtoken');
 const secret = process.env.JWT_TOKEN;
 
 
+//rota para listar os usuarios (interno)
+router.get('/listarusers', async(req,res)=>{
+
+  try{    
+    let users = await User.find();
+    res.status(200).json(users)
+
+  }catch(error){
+    res.status(500).json({error: 'Error in find all users'})
+    
+  }
+})
+
 
 
 //rota para cadastrar novos usuarios

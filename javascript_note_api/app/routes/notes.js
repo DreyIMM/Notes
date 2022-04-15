@@ -22,7 +22,6 @@ router.post('/', withAuth, async(req,res) =>{
 
 
 //Rota -> realiza uma busca da nota pelo nome(title)
-
 router.get('/search', withAuth, async(req,res)=>{
     const {query} = req.query;
 
