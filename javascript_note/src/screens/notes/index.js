@@ -13,8 +13,7 @@ const NotesScreen = () =>{
         <HeaderLogged setIsOpen={setIsOpen}/>
         <Notes setIsOpen={setIsOpen} isOpen={isOpen} />
     </Fragment>
-    
-    
+        
     
     );
 }

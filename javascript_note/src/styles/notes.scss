@@ -11,3 +11,9 @@
     background-color: white;
     padding-top: 10px;
 }
+
+
+
+.list-item.is-active {
+    background-color: $custom-grey-light;
+}

@@ -1,17 +1,17 @@
 import React, {useState, Fragment, useEffect} from "react";
-import '../../styles/notes.scss'; 
+import "../../styles/notes.scss";
 import {push as Menu} from 'react-burger-menu'
-import { Navbar, Container, Column, Button, Dropdown } from 'rbx';
-import List from './list';
+import { Column, Button} from 'rbx';
+import List from '../notes/list';
 import NotesService from '../../services/notes'
 
 
-const Notes = (props) =>{
+function Notes(props) {
     
     const [notes, setNotes] = useState([]);
     const [current_note, setCurrentNote] = useState({ title: "", body: "", id: ""}); 
 
-
+  //Metodo de listagem de nota
     async function fetchNotes(){
       const response = await NotesService.index();
       if(response.data.length >=1){
@@ -19,6 +19,13 @@ const Notes = (props) =>{
           setCurrentNote(response.data[0]);
       }
     }
+
+  //Metodo para criar uma nova nota e lista
+
+  const createNote = async () =>{
+      await NotesService.create()
+      fetchNotes();
+  }
 
     const selectNote = (id) => {
       const note =  notes.find((note) => {
@@ -53,6 +60,7 @@ const Notes = (props) =>{
                 notes={notes}
                 selectNote={selectNote}
                 current_note={current_note} 
+                createNote={createNote}
               />
         </Menu>
 

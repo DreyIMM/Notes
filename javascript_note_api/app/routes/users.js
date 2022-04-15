@@ -8,12 +8,13 @@ var jwt = require('jsonwebtoken');
 const secret = process.env.JWT_TOKEN;
 
 
+
+
 //rota para cadastrar novos usuarios
 router.post('/register', async(req,res)=>{
 
     const{name, email, password} = req.body;
     const user = new User({ name, email, password });
-      
 
     try{
 
