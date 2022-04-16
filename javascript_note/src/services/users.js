@@ -1,6 +1,6 @@
 //Onde é concetrado todas as chamados onde o EndPoint tem o user
 
-//vou armazenar no localStorage para armazenar dados do usuario e o toke
+//vou armazenar no localStorage para armazenar dados do usuario e o token
 
 import Api from './api';
 
