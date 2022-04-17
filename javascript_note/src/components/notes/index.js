@@ -2,9 +2,10 @@ import React, {useState, Fragment, useEffect} from "react";
 import "../../styles/notes.scss";
 import {push as Menu} from 'react-burger-menu'
 import { Column, Button} from 'rbx';
-import List from '../notes/list';
 import NotesService from '../../services/notes'
 import Editor from './editor';
+import List from '../notes/list';
+import Search from '../notes/search';
 
 function Notes(props) {
     
@@ -45,6 +46,12 @@ function Notes(props) {
         setCurrentNote(updatedNote.data);
     }
 
+    //metodod de busca
+    const searchNote = async (query) =>{
+      const response = await NotesService.search(query);
+      setNotes(response.data);
+    }
+
 
     const selectNote = (id) => {
       const note =  notes.find((note) => {
@@ -72,7 +79,7 @@ function Notes(props) {
                 >
             <Column.Group>
                 <Column size={10} offset={1}>
-                 Search...
+                 <Search searchNotes={searchNote} fetchNotes={fetchNotes}/>
                 </Column>
             </Column.Group>
                <List
