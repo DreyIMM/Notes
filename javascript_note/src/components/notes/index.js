@@ -84,13 +84,13 @@ function Notes(props) {
               />
         </Menu>
 
-
         <Column size={12} className="notes-editor" id="notes-editor">
             <Editor 
               note={current_note} 
               updateNote={updateNote}
             />
         </Column>
+
       </Column.Group>
         </Fragment>
     )

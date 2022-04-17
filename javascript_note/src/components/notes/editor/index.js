@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill'; // ES6
 import 'react-quill/dist/quill.snow.css'; // ES6
 
 function Editor(props) {
+  
   const [currentContent, setCurrentContent] = useState('')
 
   //auto save para as notas
@@ -12,7 +13,7 @@ function Editor(props) {
     const title = content.replace(/(<([^>]+)>)/ig, "").slice(0, 30);
     props.updateNote(props.note, {'title': title, 'body': content});
   }
-
+  //O cara que está edidanto -> Delta:APi / Source: User
   const handleChange = (content, delta, source) =>{
       clearTimeout(timer);
       if(source == 'user'){
