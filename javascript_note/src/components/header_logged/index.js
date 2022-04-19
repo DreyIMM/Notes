@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Navbar, Container, Column, Button, Dropdown } from 'rbx';
 import logoImage from '../../assets/images/logo-white.png';
 import "../../styles/header.scss";
@@ -10,12 +10,28 @@ import { faList } from '@fortawesome/free-solid-svg-icons'
 
 function HeaderLogged(props) {
     const [redirectToHome, setRedirectToHome] = useState(false);
+    const [user, setUser] = useState('');
   
     const logOut = async () => {
       await UsersService.logout();
       setRedirectToHome(true);
+
+    }
+
+    //metodo para colocar o nome no DropDown
+    const UserActive = ()=>{
+      let name = localStorage.getItem('user', user);
+      JSON.parse(name);
+     
+      console.log(name);
     }
   
+    useEffect(() =>{
+      UserActive();
+    }, [])
+
+
+
     if (redirectToHome)
       return <Navigate to={{ pathname: "/" }} />
   
@@ -58,7 +74,7 @@ function HeaderLogged(props) {
               <Dropdown>
                 <Dropdown.Trigger>
                   <Button className="button" color="white" outlined>
-                    <span>Andrey ▼</span>
+                    <span>{user} ▼</span>
                   </Button>
                 </Dropdown.Trigger>
                 <Dropdown.Menu>
