@@ -41,7 +41,7 @@ function HeaderLogged(props) {
           <Column.Group>
             <Column size="11" offset="1">
               <Link to="/notes">
-                <img src={logoImage} />
+                <img src={logoImage}/>
               </Link>
             </Column>
           </Column.Group>
