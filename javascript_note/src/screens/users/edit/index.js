@@ -3,7 +3,7 @@ import HeaderLoged from '../../../components/header_logged';
 import { Column,Section, Title, Container, Card } from "rbx";
 import logoImage from '../../../assets/images/logo.png';
 import '../../../styles/auth.scss';
-
+import EditForm from "../../../components/auth/edit_form";
 
 const UserEditcreen = () =>( 
     <Fragment>
@@ -16,7 +16,7 @@ const UserEditcreen = () =>(
                 <Card.Content>
                   <Section>
                     <Column.Group centered>
-                      <Column size={12}>
+                      <Column size={6}>
                         <img src={logoImage} />
                       </Column>
                     </Column.Group>
@@ -27,7 +27,7 @@ const UserEditcreen = () =>(
                         </Title>
                       </Column>
                     </Column.Group>
-                        Form
+                      <EditForm />
                   </Section>
                 </Card.Content>
               </Card>
