@@ -20,10 +20,8 @@ function HeaderLogged(props) {
 
     //metodo para colocar o nome no DropDown
     const UserActive = ()=>{
-      let name = localStorage.getItem('user', user);
-      JSON.parse(name);
-     
-      console.log(name);
+      let users = JSON.parse(localStorage.getItem("user"));
+      setUser(users.name)
     }
   
     useEffect(() =>{
