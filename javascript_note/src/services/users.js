@@ -15,7 +15,8 @@ const UserService ={
     logout: () =>{
         localStorage.removeItem('user', null);
         localStorage.removeItem('token', null);
-    }
+    },
+    
 }
 
 

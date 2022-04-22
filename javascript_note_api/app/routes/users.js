@@ -6,6 +6,7 @@ var router = express.Router();
 const User = require('../models/user')
 var jwt = require('jsonwebtoken');
 const secret = process.env.JWT_TOKEN;
+const bcrypt = require('bcrypt');
 
 
 //rota para listar os usuarios (interno)
@@ -76,6 +77,38 @@ router.post('/login', async(req, res)=>{
 
     }
 
+})
+
+
+//Rota para atulizar um usuario
+router.put('/edit/:id', async(req, res)=>{
+  
+  req.body.password = await bcrypt.hash(req.body.password, 10);
+
+
+  const {email, password } = req.body
+  const {id} = req.params;
+  
+  try {
+      let user = await User.findById(id);
+
+      if(user){
+          
+        let user = await User.findByIdAndUpdate(id,
+            
+        {$set: {email: email, password: password}});
+          
+        res.json(user);
+
+      } else{
+          res.status(403).json({error: 'User doesnt exist'});
+      }
+
+
+      
+  } catch (error) {
+      res.status(500).json({error: 'Problem to update a user'});
+  }
 })
 
 
