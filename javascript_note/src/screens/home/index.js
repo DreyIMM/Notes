@@ -6,6 +6,7 @@ import "../../styles/home.scss";
 import {Link} from 'react-router-dom';
 
 const HomeScreen = () => (
+
   <Fragment>
     <Header />
     <Section size="medium" className="home">
@@ -34,6 +35,7 @@ const HomeScreen = () => (
       </Container>
     </Section>
   </Fragment>
+  
 );
 
 export default HomeScreen;
