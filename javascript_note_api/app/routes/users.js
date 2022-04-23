@@ -10,9 +10,9 @@ const bcrypt = require('bcrypt');
 
 
 //rota para listar os usuarios (interno)
-router.get('/listarusers', async(req,res)=>{
+router.get('/listarusers/', async(req,res)=>{
 
-  try{    
+  try{   
     let users = await User.find();
     res.status(200).json(users)
 
@@ -22,6 +22,21 @@ router.get('/listarusers', async(req,res)=>{
   }
 })
 
+//rota que retorna um usuario
+router.get('/:id', async (req,res)=>{
+
+  const {id} = req.params;
+  
+  try{
+
+      let user = await User.findById(id);
+      res.status(200).json(user)
+
+  }catch(error){
+    res.status(500).json({Error: 'User not found'})
+  }
+
+})
 
 
 //rota para cadastrar novos usuarios
@@ -83,33 +98,40 @@ router.post('/login', async(req, res)=>{
 //Rota para atulizar um usuario
 router.put('/edit/:id', async(req, res)=>{
   
-  req.body.password = await bcrypt.hash(req.body.password, 10);
-
-
-  const {email, password } = req.body
+  const {email, password, newPassword} = req.body
   const {id} = req.params;
-  
+
   try {
       let user = await User.findById(id);
 
-      if(user){
-          
-        let user = await User.findByIdAndUpdate(id,
-            
-        {$set: {email: email, password: password}});
-          
-        res.json(user);
-
-      } else{
-          res.status(403).json({error: 'User doesnt exist'});
-      }
-
-
+      user.isCorrectPassword(password, async function(err,same){
       
+      if(!same){
+                  
+          user = await User.findOneAndUpdate(id,
+          
+          {$set: {email: email, password: newPassword}});
+                   
+          console.log("incorreta")
+          console.log(newPassword);
+          res.status(201).json(user)
+
+      }else{
+        
+          user = await User.findOneAndUpdate(id,
+                
+          {$set: {email: email, password: newPassword}});
+          
+          console.log("senha ok")
+          res.status(201).json(user)
+        }
+      })
+    
+
   } catch (error) {
-      res.status(500).json({error: 'Problem to update a user'});
+
+    res.status(500).json({error: 'Problem to update a user'});
   }
 })
-
 
 module.exports = router;

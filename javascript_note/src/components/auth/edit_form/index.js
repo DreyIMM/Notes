@@ -3,37 +3,50 @@ import { Button, Field, Control, Input, Column, Section, Help, Label } from "rbx
 import { Navigate } from "react-router-dom";
 import UserService from '../../../services/users';
 
+
 function LoginForm() {
  
-  const [id, setId] = useState("");
-  const [email, setEmail] = useState("");
-  const [passwordActual, setPasswordActual] = useState("");
   
+  const [email, setEmail] = useState("");
+  const [hash, setHas] = useState("");
+  const [passwordActual, setPasswordActual] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [redirectToRegister, setRedirectToRegister] = useState(false);
   const [redirectToNotes, setRedirectToNotes] = useState(false);
   const [error, setError] = useState(false);
+
   
   //metodo para lidar com o envio dos params para a API
   const HandleSubmit = async (evt) =>{
   
     evt.preventDefault();      
-    
-    try
-    {
-      const user = await UserService.updateUser(id,{email: email, password: passwordActual})
      
-    }catch(error)
-    {
-      setError(true);
-    }          
+    
+
+    try {
+      
+       
+
+    } catch (error) {
+      
+    }             
         
   }
 
-  const DateStorage = ()=>{
+  const DateStorage = async ()=>{
+
+    try {
+
       let users = JSON.parse(localStorage.getItem("user"));
-      setEmail(users.email)
-      setId(users._id);
       
+      const response = await UserService.index(users._id);
+      setEmail(response.data.email)
+      setHas(response.data.password);
+      
+    } catch (error) {
+      
+    }
+     
   }
 
   useEffect(() =>{
@@ -75,7 +88,19 @@ function LoginForm() {
                 />
               </Control>
             </Field>
-            
+
+            <Field>
+              <Label size="small">New Password :</Label>
+              <Control>
+                <Input 
+                  type="password" 
+                  required
+                  name="newPassword"
+                  value={newPassword}
+                  onChange={e => setNewPassword(e.target.value)}                  
+                />
+              </Control>
+            </Field>
             
             <Field>
               <Control>

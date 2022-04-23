@@ -16,9 +16,12 @@ const UserService ={
         localStorage.removeItem('user', null);
         localStorage.removeItem('token', null);
     },
-    updateUser: (id, params)  => Api.put(`/user/edit/${id}` ,params, {
+    updateUser: (id, params)  => Api.put(`/users/edit/${id}` ,params, {
        
-    }),   
+    }),
+    index: (id)=> Api.get(`/users/${id}`,{
+       
+    }),
 }
 
 

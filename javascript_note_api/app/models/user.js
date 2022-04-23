@@ -32,8 +32,7 @@ userSchema.pre('save', function(next){
                     this.password = hashedPassword;
                     next();
                 }
-            });
-            
+            });            
     }
 
 })
@@ -41,7 +40,7 @@ userSchema.pre('save', function(next){
 //criando um método para validar o password
 //same -> retorna um boolean (dizendo se a senha (true/false))
 
-userSchema.methods.isCorrectPassword = function(password, callback){
+userSchema.methods.isCorrectPassword = async function(password, callback){
 
     bcrypt.compare(password, this.password, function(err,same){
         
@@ -52,7 +51,6 @@ userSchema.methods.isCorrectPassword = function(password, callback){
             callback(err,same);
 
         }
-
     })
 
 }
