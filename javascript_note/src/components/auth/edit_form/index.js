@@ -6,11 +6,11 @@ import UserService from '../../../services/users';
 
 function LoginForm() {
  
-  
+  const [id, setId] = useState("");
   const [email, setEmail] = useState("");
-  const [hash, setHas] = useState("");
   const [passwordActual, setPasswordActual] = useState("");
   const [newPassword, setNewPassword] = useState("");
+
   const [redirectToRegister, setRedirectToRegister] = useState(false);
   const [redirectToNotes, setRedirectToNotes] = useState(false);
   const [error, setError] = useState(false);
@@ -20,15 +20,14 @@ function LoginForm() {
   const HandleSubmit = async (evt) =>{
   
     evt.preventDefault();      
-     
-    
-
-    try {
-      
        
+    try {
+
+      const user = await UserService.updateUser(id,({email: email, password:passwordActual, newPassword: newPassword}))    
 
     } catch (error) {
       
+       setError(true) 
     }             
         
   }
@@ -38,10 +37,10 @@ function LoginForm() {
     try {
 
       let users = JSON.parse(localStorage.getItem("user"));
-      
       const response = await UserService.index(users._id);
+      setId(users._id)
       setEmail(response.data.email)
-      setHas(response.data.password);
+        
       
     } catch (error) {
       
@@ -57,9 +56,7 @@ function LoginForm() {
       return <Navigate to={{pathname: "/register"}}/>
   else if(redirectToNotes)
       return <Navigate to={{pathname: "/notes"}}/>
-
-
-
+  
   return (
     <Fragment>
       <Column.Group centered onSubmit={HandleSubmit}>
@@ -113,7 +110,7 @@ function LoginForm() {
                 </Column.Group>
               </Control>
             </Field>
-            { error && <Help color="danger">Password not iguals</Help> }
+            { error && <Help color="danger">Password incorret</Help> }
           </Column>
         </form>
       </Column.Group>
