@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect} from 'react';
-import { Button, Field, Control, Input, Column, Section, Help, Label } from "rbx";
+import { Button, Field, Control, Input, Column, Tag, Help, Label } from "rbx";
 import { Navigate } from "react-router-dom";
 import UserService from '../../../services/users';
 
@@ -32,20 +32,38 @@ function LoginForm() {
         
   }
 
-  const DateStorage = async ()=>{
+  const Delete = (evt) =>{
+    evt.preventDefault()
+    console.log("Ok");
+  }
 
+  const disableInput = () =>{
+
+      let newPassword = document.getElementById("newPassword");
+
+      if(!(passwordActual == "")){
+  
+        newPassword.removeAttribute('disabled');
+
+      }
+
+      console.log("caiu")
+
+      
+  
+  }
+
+  const DateStorage = async ()=>{
     try {
 
       let users = JSON.parse(localStorage.getItem("user"));
       const response = await UserService.index(users._id);
       setId(users._id)
       setEmail(response.data.email)
-        
       
     } catch (error) {
-      
-    }
-     
+        console.log(error)
+    }     
   }
 
   useEffect(() =>{
@@ -76,7 +94,9 @@ function LoginForm() {
             <Field>
               <Label size="small">Password :</Label>
               <Control>
-                <Input 
+                <Input
+                  
+                  id="password" 
                   type="password" 
                   required
                   name="passwordActual"
@@ -89,7 +109,9 @@ function LoginForm() {
             <Field>
               <Label size="small">New Password :</Label>
               <Control>
-                <Input 
+                <Input
+                  disabled
+                  id="newPassword"
                   type="password" 
                   required
                   name="newPassword"
@@ -100,16 +122,33 @@ function LoginForm() {
             </Field>
             
             <Field>
-              <Control>
+              <Control >
                 <Column.Group  breakpoint="mobile">
            
-                  <Column >
-                    <Button  fullwidth  color="custom-purple" outlined>Atualizar</Button>
+                  <Column  align="right">
+                    <Button  color="danger" size='small'>Delete</Button>
                   </Column>
 
                 </Column.Group>
               </Control>
             </Field>
+
+
+            <Field>
+              <Control >
+                <Column.Group  breakpoint="mobile">
+           
+                  <Column >
+                    <Button onSubmit={Delete} fullwidth  color="custom-purple" outlined>Atualizar</Button>
+                  </Column>
+
+                </Column.Group>
+              </Control>
+            </Field>
+
+          
+
+
             { error && <Help color="danger">Password incorret</Help> }
           </Column>
         </form>
