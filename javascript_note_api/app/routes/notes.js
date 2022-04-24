@@ -130,7 +130,6 @@ const isOwner = (user, note)=>{
     }else{
         return false;
     }
-
 }
 
 module.exports = router;

@@ -37,6 +37,8 @@ userSchema.pre('save', function(next){
 
 })
 
+
+
 //criando um método para validar o password
 //same -> retorna um boolean (dizendo se a senha (true/false))
 

@@ -96,42 +96,34 @@ router.post('/login', async(req, res)=>{
 
 
 //Rota para atulizar um usuario
-router.put('/edit/:id', async(req, res)=>{
-  
-  const {email, password, newPassword} = req.body
-  const {id} = req.params;
+router.put("/edit/:id", async (req, res) => {
+  const { id } = req.params;
+  let newPassword = req.body.newPassword;
 
-  try {
-      let user = await User.findById(id);
+  bcrypt.hash(newPassword, 10, async (err, hashedPassword) => {
+    if (err) {
+      console.log(err);
+    } else {
+      try {
+        const email = req.body.email;
+        const password = req.body.password;
 
-      user.isCorrectPassword(password, async function(err,same){
-      
-      if(!same){
-                  
-          user = await User.findOneAndUpdate(id,
-          
-          {$set: {email: email, password: newPassword}});
-                   
-          console.log("incorreta")
-          console.log(newPassword);
-          res.status(201).json(user)
+        let user = await User.findById(id);
+        user.isCorrectPassword(password, async function (err, same) {
+          if (!same) {
+            res.status(403).json({ error: "Password incorret" });
+          } else {
+            user = await User.findOneAndUpdate(id, {
+              $set: { email: email, password: hashedPassword },
+            });
+            res.status(201).json(user);
+          }
+        });
+      } catch (error) {
 
-      }else{
-        
-          user = await User.findOneAndUpdate(id,
-                
-          {$set: {email: email, password: newPassword}});
-          
-          console.log("senha ok")
-          res.status(201).json(user)
-        }
-      })
-    
-
-  } catch (error) {
-
-    res.status(500).json({error: 'Problem to update a user'});
-  }
-})
-
+        res.status(500).json({ error: "Problem to update a user" });
+      }
+    }
+  });
+});
 module.exports = router;
