@@ -15,7 +15,7 @@ function HeaderLogged(props) {
     const logOut = async () => {
       await UsersService.logout();
       setRedirectToHome(true);
-
+      
     }
 
     //metodo para colocar o nome no DropDown

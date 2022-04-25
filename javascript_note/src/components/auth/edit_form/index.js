@@ -126,7 +126,7 @@ function LoginForm() {
                 <Column.Group  breakpoint="mobile">
            
                   <Column  align="right">
-                    <Button  color="danger" size='small'>Delete</Button>
+                    <Button onSubmit={Delete} color="danger" size='small'>Delete</Button>
                   </Column>
 
                 </Column.Group>
@@ -139,7 +139,7 @@ function LoginForm() {
                 <Column.Group  breakpoint="mobile">
            
                   <Column >
-                    <Button onSubmit={Delete} fullwidth  color="custom-purple" outlined>Atualizar</Button>
+                    <Button fullwidth  color="custom-purple" outlined>Atualizar</Button>
                   </Column>
 
                 </Column.Group>
