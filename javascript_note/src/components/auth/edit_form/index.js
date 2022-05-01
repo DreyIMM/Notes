@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect} from 'react';
 import { Button, Field, Control, Input, Column, Tag, Help, Label } from "rbx";
 import { Navigate } from "react-router-dom";
 import UserService from '../../../services/users';
-
+import Confirmed from '../../alert';
 
 function LoginForm() {
  
@@ -14,7 +14,7 @@ function LoginForm() {
   const [redirectToRegister, setRedirectToRegister] = useState(false);
   const [redirectToNotes, setRedirectToNotes] = useState(false);
   const [error, setError] = useState(false);
-
+  const [show, setShow] = useState(true);
   
   //metodo para lidar com o envio dos params para a API
   const HandleSubmit = async (evt) =>{
@@ -33,8 +33,10 @@ function LoginForm() {
   }
 
   const Delete = (evt) =>{
-    evt.preventDefault()
-    console.log("Ok");
+    
+      evt.preventDefault();
+     
+    
   }
 
   const disableInput = () =>{
@@ -73,7 +75,7 @@ function LoginForm() {
   
   return (
     <Fragment>
-      <Column.Group centered onSubmit={HandleSubmit}>
+      <Column.Group centered>
         <form>
           <Column size={12}>
             <Field>
@@ -122,33 +124,33 @@ function LoginForm() {
                 <Column.Group  breakpoint="mobile">
            
                   <Column  align="right">
-                    <Button onSubmit={Delete} color="danger" size='small'>Delete</Button>
+                    <Button onClick={Delete} color="danger" size='small'> Delete</Button>
                   </Column>
-
+              
                 </Column.Group>
               </Control>
             </Field>
-
 
             <Field>
               <Control >
                 <Column.Group  breakpoint="mobile">
            
                   <Column >
-                    <Button fullwidth  color="custom-purple" outlined>Atualizar</Button>
+                    <Button fullwidth  color="custom-purple" outlined onSubmit={HandleSubmit}>Atualizar</Button>
+                    
                   </Column>
 
                 </Column.Group>
               </Control>
             </Field>
 
-          
-
-
             { error && <Help color="danger">Password incorret</Help> }
+            {}
           </Column>
         </form>
       </Column.Group>
+      {show && <Confirmed/>}
+      {}
     </Fragment>
   )
 }
