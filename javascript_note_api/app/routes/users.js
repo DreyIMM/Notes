@@ -7,6 +7,7 @@ const User = require('../models/user')
 var jwt = require('jsonwebtoken');
 const secret = process.env.JWT_TOKEN;
 const bcrypt = require('bcrypt');
+const Notes = require('../models/notes')
 
 
 //rota para listar os usuarios (interno)
@@ -126,4 +127,33 @@ router.put("/edit/:id", async (req, res) => {
     }
   });
 });
+
+//Rota para deletar um usuario e caso exista, as notas
+router.delete('/:id', async(req,res)=>{
+
+  const {id} = req.params; 
+  let notes = await Notes.find({author:id});
+
+  try {
+      
+      if(notes != ""){
+
+        console.log('caiu');
+        notes = await Notes.deleteMany({author: id})
+      }      
+
+      let user = await User.findById(id);
+      await user.delete();
+
+      res.json({message: 'Thanks, your user has been deleted'}).status(201);
+      
+  } catch (error) {
+      res.status(500).json({error: 'Problem to delete a note'});
+  }
+
+
+})
+
+
+
 module.exports = router;

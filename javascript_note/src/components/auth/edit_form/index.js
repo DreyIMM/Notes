@@ -45,11 +45,7 @@ function LoginForm() {
   
         newPassword.removeAttribute('disabled');
 
-      }
-
-      console.log("caiu")
-
-      
+      }     
   
   }
 
