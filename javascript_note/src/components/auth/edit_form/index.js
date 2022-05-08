@@ -4,8 +4,13 @@ import { Navigate } from "react-router-dom";
 import UserService from '../../../services/users';
 import Confirmed from '../../alert';
 
+
+
+
 function LoginForm() {
- 
+  
+  let inputNewPassword = document.getElementById("newPassword");
+
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [passwordActual, setPasswordActual] = useState("");
@@ -41,16 +46,17 @@ function LoginForm() {
 
   }
 
-  const disableInput = () =>{
+  const AbledInput = (e) =>{
+      setPasswordActual(e.target.value);
 
-      let newPassword = document.getElementById("newPassword");
+      if(e.target.value == ""){
+        inputNewPassword.setAttribute("disabled","disabled")
+      
+      }else{
 
-      if(!(passwordActual == "")){
-  
-        newPassword.removeAttribute('disabled');
+        inputNewPassword.removeAttribute("disabled");  
 
-      }     
-  
+      }
   }
 
   const DateStorage = async ()=>{
@@ -95,13 +101,12 @@ function LoginForm() {
               <Label size="small">Password :</Label>
               <Control>
                 <Input
-                  
                   id="password" 
                   type="password" 
                   required
                   name="passwordActual"
                   value={passwordActual}
-                  onChange={e => setPasswordActual(e.target.value)}                  
+                  onChange={AbledInput}       
                 />
               </Control>
             </Field>
@@ -116,7 +121,7 @@ function LoginForm() {
                   required
                   name="newPassword"
                   value={newPassword}
-                  onChange={e => setNewPassword(e.target.value)}                  
+                  onChange={e => setNewPassword(e.target.value)}             
                 />
               </Control>
             </Field>
