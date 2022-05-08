@@ -35,8 +35,10 @@ function LoginForm() {
   const Delete = (evt) =>{
     
       evt.preventDefault();
-     
-    
+
+      let OpenNotification = document.getElementsByClassName('notification is-light')[0];  
+      OpenNotification.removeAttribute('id');
+
   }
 
   const disableInput = () =>{

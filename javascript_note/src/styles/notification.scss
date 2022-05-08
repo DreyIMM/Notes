@@ -1,9 +1,22 @@
-.show{
-   margin-left: 200px;
-   margin-top: 5px;
+.notification.is-light {
+    position: relative;
+    display: inline-block;
+    top: -344px;
+    padding: 22px;
+    text-align: justify;
+    padding: 119px 0;
+    line-height: inherit;
+    padding-inline: 20px;
+    text-align: left;
 }
 
-.container{
-   display: block !important;  
-   
+#close{
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+.notification.is-light.open{
+    opacity: 1;
+    visibility: visible;
 }
